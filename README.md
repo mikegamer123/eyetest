@@ -79,6 +79,7 @@ In `EyeExamParser/appsettings.json`:
     "Password": "mcTestFace"
   }
 }
+```
 
 BaseUrl must point to the running EyeExamAPI instance.
 
