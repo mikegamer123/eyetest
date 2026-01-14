@@ -1,4 +1,4 @@
-﻿# EyeExam Schedule Parser
+# EyeExam Schedule Parser
 
 This solution parses and verifies **Schedule of Notices of Leases** data retrieved from an (fake) external API.
 
@@ -79,6 +79,7 @@ In `EyeExamParser/appsettings.json`:
     "Password": "mcTestFace"
   }
 }
+```
 
 BaseUrl must point to the running EyeExamAPI instance.
 
@@ -89,7 +90,7 @@ Swagger UI will open for EyeExamParser in Development mode
 Using the API
 Get parsed schedules
 bash
-Копирај кȏд
+
 GET /api/schedules
 Fetches raw schedules from EyeExamAPI
 
@@ -97,7 +98,7 @@ Parses them into structured form
 
 Caches the result for 10 minutes
 
-Verify parsed results
+## Verify parsed results
 
 GET /api/schedules/AreResultsTheSame
 Compares cached parsed results with /results from EyeExamAPI
@@ -112,19 +113,19 @@ YES → results match
 
 NO + detailed diff → mismatch detected
 
-Caching Behavior
+## Caching Behavior
 Parsed schedules are cached in memory for 10 minutes
 
 Cache key: parsed_schedule_cache
 
 Verification always uses cached data (no re-parse)
 
-Testing
+## Testing
 Run tests:
 
 dotnet test
 
-Tests cover:
+## Tests cover:
 
 Parsing logic (including edge cases)
 
