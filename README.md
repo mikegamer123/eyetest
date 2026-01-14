@@ -1,4 +1,4 @@
-﻿# EyeExam Schedule Parser
+# EyeExam Schedule Parser
 
 This solution parses and verifies **Schedule of Notices of Leases** data retrieved from an (fake) external API.
 
