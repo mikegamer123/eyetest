@@ -1,0 +1,24 @@
+# .NET
+bin/
+obj/
+.vs/
+*.user
+*.suo
+
+# Rider / VSCode
+.idea/
+.vscode/
+
+# Docker
+**/Dockerfile.user
+
+# Logs
+*.log
+
+# Secrets
+appsettings.Development.json
+appsettings.Local.json
+
+# OS
+.DS_Store
+Thumbs.db
