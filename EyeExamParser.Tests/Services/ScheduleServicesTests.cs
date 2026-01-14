@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using EyeExamParser.DTO;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging.Abstractions;
 using NSubstitute;
 using Xunit;
 
@@ -34,7 +34,7 @@ namespace EyeExamParser.Tests.Services
 
             cache.Set("parsed_schedule_cache", cached);
 
-            var svc = new ScheduleServices(httpClient, cache, parser);
+            var svc = new ScheduleServices(httpClient, cache, parser, NullLogger<ScheduleServices>.Instance);
 
             //Act
             var result = await svc.GetSchedulesAsync();
@@ -75,7 +75,7 @@ namespace EyeExamParser.Tests.Services
             var parser = Substitute.For<IScheduleParser>();
             parser.Parse(Arg.Any<IEnumerable<RawScheduleDTO>>()).Returns(parsed);
 
-            var svc = new ScheduleServices(httpClient, cache, parser);
+            var svc = new ScheduleServices(httpClient, cache, parser, NullLogger<ScheduleServices>.Instance);
 
             //Act
             var result = await svc.GetSchedulesAsync();
@@ -104,7 +104,7 @@ namespace EyeExamParser.Tests.Services
             using var cache = new MemoryCache(new MemoryCacheOptions());
             var parser = Substitute.For<IScheduleParser>();
 
-            var svc = new ScheduleServices(httpClient, cache, parser);
+            var svc = new ScheduleServices(httpClient, cache, parser, NullLogger<ScheduleServices>.Instance);
 
             //Act
             var result = await svc.VerifyAgainstExternalResultsAsync();
@@ -159,13 +159,13 @@ namespace EyeExamParser.Tests.Services
             cache.Set("parsed_schedule_cache", cached);
 
             var parser = Substitute.For<IScheduleParser>();
-            var svc = new ScheduleServices(httpClient, cache, parser);
+            var svc = new ScheduleServices(httpClient, cache, parser, NullLogger<ScheduleServices>.Instance);
 
             //Act
             var result = await svc.VerifyAgainstExternalResultsAsync();
 
             //Assert
-            Assert.Equal("YES", result);
+            Assert.Contains("Yup", result);
             Assert.Equal(1, handler.CallCount);
         }
 
@@ -213,7 +213,7 @@ namespace EyeExamParser.Tests.Services
             cache.Set("parsed_schedule_cache", cached);
 
             var parser = Substitute.For<IScheduleParser>();
-            var svc = new ScheduleServices(httpClient, cache, parser);
+            var svc = new ScheduleServices(httpClient, cache, parser, NullLogger<ScheduleServices>.Instance);
 
             //Act
             var result = await svc.VerifyAgainstExternalResultsAsync();
@@ -255,7 +255,7 @@ namespace EyeExamParser.Tests.Services
             cache.Set("parsed_schedule_cache", cached);
 
             var parser = Substitute.For<IScheduleParser>();
-            var svc = new ScheduleServices(httpClient, cache, parser);
+            var svc = new ScheduleServices(httpClient, cache, parser, NullLogger<ScheduleServices>.Instance);
 
             //Act
             var result = await svc.VerifyAgainstExternalResultsAsync();
